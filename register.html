@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Full Stack Java Trainee - Evaluación Módulo 2">
+  <meta name="keywords" content="HTML,CSS,Javascript,Bootsrap,JQuery">
+  <meta name="author" content="Nelson Alvarado Ojeda">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evaluacion Modulo 2</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link rel="stylesheet" href="x01.css">
+</head>
+
+<body>
+  <!-- Encabezado -->
+  <h1 class="text-center" id="Registro_User">Registro de usuario</h1>
+  <br>
+  <!-- Principal -->
+  <div class="container" style="max-width: 420px;">
+    <div class="card shadow border-0 p-4">
+      <form id="form-registro">
+        <div class="mb-3">
+          <label for="reg-nombre" class="form-label fw-bold">Nombre Completo</label>
+          <input type="text" id="reg-nombre" class="form-control" required placeholder="Ej: Juan Pérez">
+        </div>
+        <div class="mb-3">
+          <label for="reg-email" class="form-label fw-bold">Correo Electrónico</label>
+          <input type="email" id="reg-email" class="form-control" required placeholder="correo@ejemplo.com">
+        </div>
+        <div class="mb-3">
+          <label for="reg-password" class="form-label fw-bold">Contraseña Secreta</label>
+          <input type="password" id="reg-password" class="form-control" required placeholder="Mínimo 6 caracteres">
+        </div>
+        <div class="mb-4">
+          <label for="reg-confirmar" class="form-label fw-bold">Confirmar Contraseña</label>
+          <input type="password" id="reg-confirmar" class="form-control" required placeholder="Repite tu contraseña">
+        </div>
+        <button type="submit" class="btn btn-primary w-100 fw-bold py-2">Registrarme</button>
+      </form>
+      <div class="text-center mt-3">
+        <a href="index.html" class="text-muted small">← Volver al Inicio de Sesión</a>
+      </div>
+    </div>
+  </div><br>
+    <!-- Javascript -->
+  <script>
+    document.getElementById('form-registro').addEventListener('submit', function (e) {
+      e.preventDefault();
+      let nombre = document.getElementById('reg-nombre').value.trim();
+      let email = document.getElementById('reg-email').value.trim().toLowerCase();
+      let password = document.getElementById('reg-password').value;
+      let confirmar = document.getElementById('reg-confirmar').value;
+      // --- Validaciones ---
+      if (password.length < 6) {
+        alert("❌ La contraseña debe tener al menos 6 caracteres por seguridad.");
+        return;
+      }
+      if (password !== confirmar) {
+        alert("❌ Las contraseñas no coinciden. Verifica bien.");
+        return;
+      }
+      let usuariosRegistrados = JSON.parse(localStorage.getItem('wallet_usuarios')) || [];
+      // Validación de correo duplicado
+      let correoDuplicado = usuariosRegistrados.some(u => u.email === email);
+      if (correoDuplicado) {
+        alert("❌ Este correo electrónico ya está registrado.");
+        return;
+      }
+      // Guardar el nuevo usuario en el arreglo
+      usuariosRegistrados.push({
+        nombre: nombre,
+        email: email,
+        password: password
+      });
+      localStorage.setItem('wallet_usuarios', JSON.stringify(usuariosRegistrados));
+      // Lista de contactos actual de la memoria
+      let contactosWallet = JSON.parse(localStorage.getItem('wallet_contactos')) || [
+        { nombre: 'Condorito', saldoSimulado: 0 },
+        { nombre: 'Pepe Cortizona', saldoSimulado: 0 },
+        { nombre: 'Yayita', saldoSimulado: 0 },
+        { nombre: 'Huevo Duro', saldoSimulado: 0 }];
+      // Captura y limpieza del nombre del input
+      // Revisar si YA EXISTE alguien con ese mismo nombre (ignorando mayúsculas/minúsculas)
+      let existe = contactosWallet.some(function (contacto) {
+        return contacto.nombre.toLowerCase() === nombre.toLowerCase();
+      });
+      // Si NO existe (!existe), se agrega al arreglo
+      if (!existe) {
+        contactosWallet.push({
+          nombre: nombre,
+          saldoSimulado: 0 // Inicia listo para recibir transferencias
+        });
+        // Guardar la lista actualizada en el LocalStorage
+        localStorage.setItem('wallet_contactos', JSON.stringify(contactosWallet));
+        console.log("Contacto agregado con éxito: " + nombre);
+      }
+      else {
+        console.log("El contacto " + nombre + " ya existía, no se duplicó.");
+      }
+      alert("¡Registro exitoso! Ya puede iniciar sesión con sus datos.");
+      window.location.href = "index.html"; // De vuelta al login
+    })
+  </script>
+  <!-- Pie de página -->
+  <footer class="f01">
+    <adress>
+      <i class="fas fa-envelope"></i>&nbsp ankewallet@nao.cl<br>
+      &copy; Copyright 2026 All Rights Reserved, NAO
+    </adress>
+  </footer>
+  <!-- CDN de JQuery, Bootstrap y archivo js -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script src="x01.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

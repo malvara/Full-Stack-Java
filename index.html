@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Full Stack Java Trainee - Evaluación Módulo 2">
+    <meta name="keywords" content="HTML,CSS,Javascript,Bootsrap,JQuery">
+    <meta name="author" content="Nelson Alvarado Ojeda">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluacion Modulo 2</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="x01.css">
+</head>
+
+<body>
+    <!-- Encabezado -->
+    <h1 class="text-center" id="Inicio_Sesion">Inicio de sesión</h1><br>
+    <p class="text-center" id="Inicio_Mensaje1">¡Bienvenido a <strong>Anke Wallet</strong>!</p>
+    <br>
+    <!-- Cuerpo -->
+    <div class="container" style="max-width: 400px;">
+        <div class="card shadow border-0 p-4">
+            <form id="form-login">
+                <div class="mb-3">
+                    <label for="login-email" class="form-label fw-bold">Correo Electrónico</label>
+                    <input type="email" id="login-email" class="form-control" required placeholder="correo@ejemplo.com">
+                </div>
+                <div class="mb-4">
+                    <label for="login-password" class="form-label fw-bold">Contraseña</label>
+                    <input type="password" id="login-password" class="form-control" required
+                        placeholder="Tu contraseña">
+                </div>
+                <button type="submit" class="btn btn-success w-100 fw-bold py-2">Ingresar</button>
+            </form>
+            <!-- Usuarios no registrados -->
+            <hr class="mt-4">
+            <div class="text-center">
+                <p class="text-muted small mb-2"><strong>¿Es nuevo en la aplicación?</strong></p>
+                <a href="register.html" class="btn btn-outline-primary btn-sm w-100 fw-bold">Registrarse</a>
+            </div>
+        </div>
+    </div><br>
+    <!-- Javascript -->
+    <script>
+        document.getElementById('form-login').addEventListener('submit', function (e) {
+            e.preventDefault(); // Evitamos que la página se recargue sola
+            let email = document.getElementById('login-email').value.trim().toLowerCase();
+            let password = document.getElementById('login-password').value;
+            // Lista de usuarios guardados en la memoria
+            let usuariosRegistrados = JSON.parse(localStorage.getItem('wallet_usuarios')) || [];
+            // Búsqueda de usuario que coincida exactamente con el email ingresado
+            let usuarioEncontrado = usuariosRegistrados.find(u => u.email === email);
+            // --- Validación ---
+            if (!usuarioEncontrado) {
+                alert("❌ El correo electrónico no está registrado.");
+                return;
+            }
+            if (usuarioEncontrado.password !== password) {
+                alert("❌ Contraseña incorrecta. Inténtalo de nuevo.");
+                return;
+            }
+            // Si todo es correcto, guardamos el estado de la sesión y su nombre
+            localStorage.setItem('wallet_sesion_activa', 'true');
+            localStorage.setItem('wallet_nombre_usuario', usuarioEncontrado.nombre);
+            localStorage.setItem('wallet_email_usuario', email);
+            alert(`¡Bienvenido, ${usuarioEncontrado.nombre}!`);
+            window.location.href = "menu.html"; // Lo enviamos a la aplicación principal
+        });
+    </script>
+    <!-- Pie de página -->
+    <footer class="f01">
+        <adress>
+            <i class="fas fa-envelope"></i>&nbsp ankewallet@nao.cl<br>
+            &copy; Copyright 2026 All Rights Reserved, NAO
+        </adress>
+    </footer>
+    <!-- CDN de JQuery, Bootstrap y archivo js -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="x01.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
