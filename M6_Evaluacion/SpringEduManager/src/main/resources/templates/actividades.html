@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SpringEduManager - Calificaciones</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body class="bg-light">
+<div class="container mt-5">
+    <!-- Encabezado Dinámico -->
+    <div class="row mb-4">
+        <div class="col text-center">
+            <h1 class="display-5 fw-bold text-success">Control de Prácticas y Evaluaciones</h1>
+            <!-- th:text pintará el rol de forma dinámica en la pantalla -->
+            <p class="lead text-muted">Vista actual: <span class="fw-bold text-dark" th:text="${modoVista}">Modo de Vista</span></p>
+            <hr class="my-4">
+        </div>
+    </div>
+    <!-- Tabla de Calificaciones -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-success text-white py-3">
+                    <h5 class="mb-0 fw-bold">Registro de Notas</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover align-middle mb-0">
+                            <thead class="table-dark">
+                                <tr class="text-center">
+                                    <th style="width: 10%">ID Actividad</th>
+                                    <th style="width: 25%">Estudiante</th>
+                                    <th style="width: 30%">Curso / Módulo</th>
+                                    <th style="width: 25%">Práctica / Tarea</th>
+                                    <th style="width: 10%">Nota (1.0 - 7.0)</th>
+                                </tr>
+                            </thead>
+                        <tbody>
+                            <!-- Recorremos la lista enviada por el WebController -->
+                            <tr th:each="act : ${listaActividades}">
+                                <td class="text-center fw-bold text-secondary" th:text="${act.id}">1</td>
+                                <td class="text-dark" th:text="${act.usuario.nombre}">Nombre Estudiante</td>
+                                <td class="text-muted" th:text="${act.curso.nombre}">Nombre Curso</td>
+                                <td class="fw-semibold text-secondary" th:text="${act.practica}">Nombre Práctica</td>
+                                <!-- Estilo condicional para las notas (< 4.0 rojo, >= 4.0 azul) -->
+                                <td class="text-center fw-bold fs-5"
+                                    th:text="${act.evaluacion}"
+                                    th:classappend="${act.evaluacion < 4.0} ? 'text-danger' : 'text-primary'">7.0
+                                </td>
+                            </tr>
+                            <tr th:if="${#lists.isEmpty(listaActividades)}">
+                                <td colspan="5" class="text-center text-muted py-4">No se registran actividades en el sistema.</td>
+                            </tr>
+                            </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Enlace de retorno para navegación de prueba -->
+    <div class="row mt-4">
+        <div class="col text-center">
+            <a th:href="@{/cursos}" class="btn btn-outline-secondary">← Volver a Cursos</a>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+crossorigin="anonymous"></script>
+</body>
+</html>
