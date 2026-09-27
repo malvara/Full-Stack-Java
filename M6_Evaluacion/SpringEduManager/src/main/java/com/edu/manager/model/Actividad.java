@@ -9,10 +9,12 @@ public class Actividad {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "actividad_id")
     private Long id;
-    @ManyToOne
+    // CORRECCIÓN ATÓMICA: Forzamos a que el campo de unión se llame exactamente 'usuario_id'
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
-    @ManyToOne
+    // CORRECCIÓN ATÓMICA: Forzamos a que el campo de unión se llame exactamente 'curso_id'
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "curso_id", nullable = false)
     private Curso curso;
     @Column(name = "actividad_practica", nullable = false)

@@ -12,10 +12,10 @@ public class Usuario {
     @Column(name = "usuario_nombre", nullable = false)
     private String nombre;
     @Column(name = "usuario_email", unique = true, nullable = false)
-    private String email;
-    @Column(name = "usuario_password", nullable = false)
+    private String username;
+    @Column(name = "usuario_password", nullable = false, length = 100)
     private String password;
-    @Column(name = "usuario_rol", nullable = false)
+    @Column(name = "usuario_rol", nullable = false, length = 100)
     private String rol; // Aquí guardaremos "ROLE_ADMIN" o "ROLE_USER"
     @Column(name = "usuario_edad")
     private Integer edad;
@@ -27,14 +27,14 @@ public class Usuario {
     /**
      * Constructor con parámetros.
      * @param nombre nombre de usuario.
-     * @param email correo electrónico suario.
+     * @param username correo electrónico suario.
      * @param password contraseña del usuario.
      * @param rol admin o user.
      * @param edad ead del usuario.
      */
-    public Usuario(String nombre, String email, String password, String rol, Integer edad) {
+    public Usuario(String nombre, String username, String password, String rol, Integer edad) {
         this.nombre = nombre;
-        this.email = email;
+        this.username = username;
         this.password = password;
         this.rol = rol;
         this.edad = edad;
@@ -69,18 +69,18 @@ public class Usuario {
         this.nombre = nombre;
     }
     /**
-     *  Método que obtiene el email del usuario.
-     * @return email del usuario.
+     *  Método que obtiene el username del usuario.
+     * @return username del usuario.
      */
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
     /**
      * Método que modifica el email del usuario.
-     * @param email nuevo email del usuario.
+     * @param username nuevo email del usuario.
      */
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
     /**
      *  Método que obtiene el contraseña del usuario.

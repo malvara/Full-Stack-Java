@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SpringEduManager - Bienvenidos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body class="bg-light">
+
+<div class="container-fluid min-vh-100 d-flex align-items-stretch">
+    <div class="row w-100 m-0">
+
+        <!-- COLUMNA IZQUIERDA: Bienvenida al Proyecto (Se oculta en celulares d-none d-lg-flex) -->
+        <div class="col-lg-7 d-none d-lg-flex flex-column justify-content-center text-white px-5"
+             style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
+            <div style="max-width: 600px;">
+                <span class="badge bg-info text-dark fw-bold mb-3 px-3 py-2 fs-6">Bootcamp Módulo 6</span>
+                <h1 class="display-4 fw-bold mb-3">Plataforma Académica SpringEduManager</h1>
+                <p class="fs-5 text-white-50 mb-4">
+                    Sistema integral para la coordinación, control y visualización de rendimiento académico.
+                    Diseñado bajo el patrón de arquitectura MVC y protegido por cifrado criptográfico BCrypt.
+                </p>
+            </div>
+        </div>
+
+        <!-- COLUMNA DERECHA: Formulario de Acceso (Toma el 100% en celulares col-12) -->
+        <div class="col-12 col-lg-5 d-flex flex-column justify-content-center bg-white px-3 px-md-5 py-5 shadow-lg">
+
+            <div th:if="${param.error}" class="alert alert-danger text-center shadow-sm fw-bold mb-4">
+                ❌ Credenciales incorrectas. Inténtalo de nuevo.
+            </div>
+            <div th:if="${param.logout}" class="alert alert-success text-center shadow-sm fw-bold mb-4">
+                🔒 Has cerrado sesión de forma segura.
+            </div>
+
+
+            <div class="mb-4">
+                <div class="d-lg-none mb-2">
+                    <h2 class="fw-bold text-primary mb-0">🎓 SpringEduManager</h2>
+                    <hr class="my-2">
+                </div>
+                <h2 class="fw-bold text-dark mb-1">¡Bienvenido!</h2>
+                <p class="text-muted small">Ingresa tus credenciales oficiales para acceder al panel de control.</p>
+            </div>
+
+            <form th:action="@{/login}" method="post">
+                <div class="mb-3">
+                    <label class="form-label fw-bold text-secondary small">Correo Electrónico</label>
+                    <input type="email" name="username" class="form-control form-control-lg border-2" placeholder="ejemplo@bootcamp.com" required autocomplete="username">
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label fw-bold text-secondary small">Contraseña</label>
+                    <input type="password" name="password" class="form-control form-control-lg border-2" placeholder="••••••••" required autocomplete="current-password">
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold shadow-sm py-3" style="background-color: #1e3c72; border: none;">
+                    Ingresar a la Plataforma →
+                </button>
+            </form>
+
+            <div class="mt-5 text-center text-muted">
+                <small>© 2026 SpringEduManager. Todos los derechos reservados.</small>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="https://jsdelivr.net" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+</html>
