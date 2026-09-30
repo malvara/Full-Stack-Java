@@ -9,7 +9,7 @@ Unidad solicitante: Coordinación Académica de un bootcamp de programación. El
     - consultar sus evaluaciones. 
 - Esta aplicación servirá también como base para futuros módulos, integrándose con otros sistemas del campus.
 ### Objetivo
-Desarrollar progresivamente una aplicación web educativa en Java utilizando el ecosistema de Spring (Spring Boot, Spring MVC, Spring Data JPA, Spring Security, REST) que permita gestionar estudiantes, cursos y evaluaciones. El proyecto se realizará en etapas y cada entrega corresponderá a una lección del módulo, asegurando la integración continua del sistema.
+Desarrollar progresivamente una alicación web educativa en Java utilizando el ecosistema de Spring (Spring Boot, Spring MVC, Spring Data JPA, Spring Security, REST) que permita gestionaapr estudiantes, cursos y evaluaciones. El proyecto se realizará en etapas y cada entrega corresponderá a una lección del módulo, asegurando la integración continua del sistema.
 ### Requerimientos
 - Uso de Maven como gestor de dependencias.
 - Arquitectura basada en MVC con Spring Boot.
